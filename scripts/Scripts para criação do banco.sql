@@ -1,19 +1,6 @@
-# Gerenciador de Espaço Naves do Star Wars
-
-### Atividade do Bootcamp da Digital Innovation One
-
-Scripts de criação das tabelas no banco de dados em SQL Server.
-
-Antes de tudo, precisamos criar o banco de dados, para então criar as tabelas.
-Podemos fazer isso usando o seguinte comando:
-
-`CREATE DATABASE EstrelaDaMorte;`
-
-Em seguida, selecionamos o banco de dados e criamos a nossa primeira tabela que irá guardar as informações dos Planetas:
-
-```
 USE EstrelaDaMorte
 
+--****** PLANETAS ************************************************************************************************
 CREATE TABLE Planetas(
 	IdPlaneta int NOT NULL,
 	Nome varchar(50) NOT NULL,
@@ -26,11 +13,8 @@ CREATE TABLE Planetas(
 GO
 ALTER TABLE Planetas ADD CONSTRAINT PK_Planetas PRIMARY KEY (IdPlaneta);
 GO
-```
-
-A próxima tabela a ser criada será a que guardará os dados das Naves. Executamos o seguinte comando:
-
-```
+--****************************************************************************************************************
+--****** NAVES ***************************************************************************************************
 CREATE TABLE Naves(
 	IdNave int NOT NULL,
 	Nome varchar(100) NOT NULL,
@@ -42,10 +26,8 @@ CREATE TABLE Naves(
 GO
 ALTER TABLE Naves ADD CONSTRAINT PK_Naves PRIMARY KEY (IdNave);
 GO
-```
-
-Em seguinda, criamos a tabela dos dados dos Pilotos, adicionando também as chaves que irão fazer os relacionamentos entre tabelas:
-```
+--****** PILOTOS *************************************************************************************************
+--****************************************************************************************************************
 CREATE TABLE Pilotos(
 	IdPiloto int NOT NULL,
 	Nome varchar(200) NOT NULL,
@@ -60,11 +42,8 @@ REFERENCES Planetas (IdPlaneta)
 GO
 ALTER TABLE Pilotos CHECK CONSTRAINT FK_Pilotos_Planetas
 GO
-```
-
-É preciso ainda criar uma tabela intermediária para nos ajudar a criar o relacionamento de Pilotos e Naves:
-
-```
+--****************************************************************************************************************
+--****** PILOTOS NAVES *******************************************************************************************
 CREATE TABLE PilotosNaves(
 	IdPiloto int NOT NULL,
 	IdNave int NOT NULL,
@@ -81,9 +60,8 @@ REFERENCES Naves (IdNave)
 GO
 ALTER TABLE PilotosNaves  ADD CONSTRAINT DF_PilotosNaves_FlagAutorizado  DEFAULT (1) FOR FlagAutorizado
 GO
-```
-Por fim, criaremos uma tabela que irá guardar os dados das Viagens para podermos ter controle de quais naves estão disponíveis ou não.
-```
+--****************************************************************************************************************
+--****** HIST�RICO DE VIAGENS ************************************************************************************
 CREATE TABLE HistoricoViagens(
 	IdNave int NOT NULL,
 	IdPiloto int NOT NULL,
@@ -98,4 +76,4 @@ GO
 
 ALTER TABLE HistoricoViagens CHECK CONSTRAINT FK_HistoricoViagens_PilotosNaves
 GO
-```
+--****************************************************************************************************************
